@@ -7,40 +7,39 @@ on:
     branches: [ '*' ]
 
 jobs:
-
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         go_version: ['1.18', '1.17', '>=1.18']
         os: ['ubuntu-latest', 'ubuntu-22.04']
-steps:
-  - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  - name: Set up Go
-    uses: actions/setup-go@v3
-    with:
-      go-version: ${{ matrix.go_version }}
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go_version }}
 
-  - name: Install Docker Compose
-    run: |
-      echo "Installing Docker Compose..."
-      echo "uname -s: $(uname -s)"
-      echo "uname -m: $(uname -m)"
-      sudo -v
-      sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '"' -f 4)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      sudo chmod +x /usr/local/bin/docker-compose
-      echo "Docker Compose installed successfully!"
-      docker-compose --version
+      - name: Install Docker Compose
+        run: |
+          echo "Installing Docker Compose..."
+          echo "uname -s: $(uname -s)"
+          echo "uname -m: $(uname -m)"
+          sudo -v
+          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '"' -f 4)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          echo "Docker Compose installed successfully!"
+          docker-compose --version
 
-  - name: Build-DB
-    run: docker-compose build
-      
-  - name: Create-DB
-    run: docker-compose up -d
+      - name: Build-DB
+        run: docker-compose build
+        
+      - name: Create-DB
+        run: docker-compose up -d
 
-  - name: Test
-    run: go test -v main_test.go 
+      - name: Test
+        run: go test -v main_test.go 
       
   
   build:
