@@ -23,7 +23,7 @@ jobs:
         go-version: ${{ matrix.go_version }}
       
     - name: Set up Docker Compose
-      uses: docker/compose-action@v2
+      uses: docker/compose-action@v3
 
     - name: Build-DB
       run: docker-compose build
