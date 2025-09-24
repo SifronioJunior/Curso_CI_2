@@ -34,7 +34,7 @@ jobs:
     # Path to the Dockerfile
         file: ./Dockerfile
     # Push is a shorthand for --output=type=registry
-        push: tru
+        push: true
           tags: safraboy/go_ci:${{github.ref_name}}
     
           
