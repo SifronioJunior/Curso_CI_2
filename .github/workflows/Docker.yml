@@ -4,7 +4,6 @@ on:
   workflow_call:
 
 jobs:
-  
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -15,16 +14,13 @@ jobs:
 
       - name: Download a Build Artifact
         uses: actions/download-artifact@v5.0.0
-      with:
-    # Artifact name
-        name: programa
-      
-    - name: Docker Login
+        with:
+          name: programa
+
+      - name: Docker Login
         uses: docker/login-action@v3.5.0
         with:
-          # Username used to log against the Docker registry
           username: safraboy
-          # Password or personal access token used to log against the Docker registry
           password: ${{ secrets.PASSWORD_DOCKER_HUB }}
 
       - name: Build and push Docker images
