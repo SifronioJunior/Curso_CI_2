@@ -48,17 +48,18 @@ jobs:
         run: go test -v main_test.go 
       
   
-  build:
-    needs: test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: ['ubuntu-latest', 'ubuntu-22.04']
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: go build -v main.go
+build:
+  needs: test
+  runs-on: ${{ matrix.os }}
+  strategy:
+    matrix:
+      os: ['ubuntu-latest', 'ubuntu-22.04']
+  steps:
+  - uses: actions/checkout@v3
+  - name: Build
+    run: go build -v main.go
 
- docker: 
-   needs: build
-   uses: ./.github/workflows/Docker.yml
+docker: 
+  needs: build
+  uses: ./.github/workflows/Docker.yml
+  secrets: inherit
