@@ -58,9 +58,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.2
       with:
-       
-        name: programa    # A file, directory or wildcard pattern that describes what to upload
-    
+        name: programa
         path: main
     # The desired behavior if no files are found using the provided path.
   
