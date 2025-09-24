@@ -7,7 +7,6 @@ on:
     branches: [ '*' ]
 
 jobs:
-
   test:
     runs-on: ${{ matrix.os }}
     env:
@@ -21,12 +20,12 @@ jobs:
         go_version: ['1.18', '1.17', '>=1.18']
         os: ['ubuntu-latest', 'ubuntu-22.04']
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: ${{ matrix.go_version }}
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go_version }}
 
       - name: Build-DB
         run: docker-compose build
@@ -41,17 +40,16 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: go build -v main.go
+      - uses: actions/checkout@v3
+      - name: Build
+        run: go build -v main.go
 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.6.2
-      with:
-        name: programa
-        path: main
-    # The desired behavior if no files are found using the provided path.
-  
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: programa
+          path: main
+      # The desired behavior if no files are found using the provided path.
           
   docker: 
     needs: build
