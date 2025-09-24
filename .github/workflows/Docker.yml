@@ -30,6 +30,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: safra/go_ci:${{github.ref_name}}
+          tags: safraboy/go_ci:${{github.ref_name}}
     
           
